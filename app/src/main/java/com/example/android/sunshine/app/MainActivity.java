@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -63,12 +65,13 @@ public class MainActivity extends ActionBarActivity {
             an ArrayAdapter to feed to the ListView constructor (?)
              */
 
-            ArrayList<String> listItems = new ArrayList<String>();
-            listItems.add("Today - 67F - Chilly... not really...");
-            listItems.add("Today - 57F - Chilly, kind of");
-            listItems.add("Today - 87F - Chilly... who am I kidding?");
-            listItems.add("Today - 17F - Chilly");
-
+            ArrayList<String> weekForecast = new ArrayList<String>();
+            weekForecast.add("Today - 67F - Chilly... not really...");
+            weekForecast.add("Today - 57F - Chilly, kind of");
+            weekForecast.add("Today - 87F - Chilly... who am I kidding?");
+            weekForecast.add("Today - 17F - Chilly");
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.id.list_item_forecast_textview, weekForecast);
+            ListView l = (ListView) getActivity().findViewById(R.id.listview_forecast);
             return rootView;
         }
     }
