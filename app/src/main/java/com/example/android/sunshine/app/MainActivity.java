@@ -65,13 +65,18 @@ public class MainActivity extends ActionBarActivity {
             an ArrayAdapter to feed to the ListView constructor (?)
              */
 
-            ArrayList<String> weekForecast = new ArrayList<String>();
-            weekForecast.add("Today - 67F - Chilly... not really...");
-            weekForecast.add("Today - 57F - Chilly, kind of");
-            weekForecast.add("Today - 87F - Chilly... who am I kidding?");
-            weekForecast.add("Today - 17F - Chilly");
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.id.list_item_forecast_textview, weekForecast);
-            ListView l = (ListView) getActivity().findViewById(R.id.listview_forecast);
+            ArrayList<String> listItems = new ArrayList<String>();
+            listItems.add("Today - 67F - Chilly... not really...");
+            listItems.add("Today - 57F - Chilly, kind of");
+            listItems.add("Today - 87F - Chilly... who am I kidding?");
+            listItems.add("Today - 17F - Chilly");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    R.layout.list_item_forecast, R.id.list_item_forecast_textview,
+                    listItems
+            );
+            //NEED TO USE ROOTVIEW HERE!!!!!!!
+            ListView forecasts = (ListView) rootView.findViewById(R.id.listview_forecast);
+            forecasts.setAdapter(adapter);
             return rootView;
         }
     }
