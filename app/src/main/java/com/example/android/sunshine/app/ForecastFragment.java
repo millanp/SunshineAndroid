@@ -1,8 +1,12 @@
+package com.example.android.sunshine.app;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,6 +30,26 @@ public class ForecastFragment extends Fragment {
     public ForecastFragment() {
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.forecastfragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            FetchWeatherTask f = new FetchWeatherTask();
+            f.execute();
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +121,7 @@ public class ForecastFragment extends Fragment {
                     return null;
                 }
                 forecastJsonStr = buffer.toString();
+                Log.v(LOG_TAG, "Forecsat JSON String: " + forecastJsonStr);
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
@@ -114,6 +139,7 @@ public class ForecastFragment extends Fragment {
                     }
                 }
             }
+            return null;
         }
 
     }
