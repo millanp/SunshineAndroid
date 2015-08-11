@@ -1,4 +1,7 @@
 package com.example.android.sunshine.app;
+import android.app.LauncherActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.app.R;
 
@@ -84,8 +89,11 @@ public class ForecastFragment extends Fragment {
         forecasts.setAdapter(adapter);
         forecasts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                CharSequence thisItem = (CharSequence) adapterView.getItemAtPosition(position);
+                Intent toDetail = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, adapter.getItem(position));
+                startActivity(toDetail);
             }
         });
 
