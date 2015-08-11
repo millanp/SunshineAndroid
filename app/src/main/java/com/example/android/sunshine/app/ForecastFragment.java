@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -81,7 +82,12 @@ public class ForecastFragment extends Fragment {
         //NEED TO USE ROOTVIEW HERE!!!!!!!
         ListView forecasts = (ListView) rootView.findViewById(R.id.listview_forecast);
         forecasts.setAdapter(adapter);
+        forecasts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            }
+        });
 
         return rootView;
     }
@@ -119,7 +125,7 @@ public class ForecastFragment extends Fragment {
                     .appendQueryParameter(FORMAT_PARAM, mode)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(days)).build();
-                Log.v("FetchWeatherTask", q.toString());
+
                 URL url = new URL(q.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
@@ -274,9 +280,6 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
             return resultStrs;
 
         }
