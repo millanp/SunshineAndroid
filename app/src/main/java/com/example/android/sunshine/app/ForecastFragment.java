@@ -2,9 +2,11 @@ package com.example.android.sunshine.app;
 import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -57,8 +59,11 @@ public class ForecastFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            // TODO: Figure out how to have a comma here... I don't live in Lithuania 
-            FetchWeatherTask f = new FetchWeatherTask("98115,us");
+            // TODO: Figure out how to have a comma here... I don't live in Lithuania
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String postCode = sharedPreferences.getString(getString(R.string.pref_location_key),
+                    getString(R.string.pref_location_default));
+            FetchWeatherTask f = new FetchWeatherTask(postCode);
             f.execute();
             return true;
         }
